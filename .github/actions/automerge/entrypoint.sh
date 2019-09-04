@@ -31,7 +31,7 @@ set -o xtrace
 git fetch origin $STABLE_BRANCH
 git fetch origin $DEVELOPMENT_BRANCH
 
-# do the merge
+git checkout -b $STABLE_BRANCH origin/$STABLE_BRANCH
 git checkout -b $DEVELOPMENT_BRANCH origin/$DEVELOPMENT_BRANCH
 
 if ! git merge-base --is-ancestor $STABLE_BRANCH $DEVELOPMENT_BRANCH; then
@@ -39,5 +39,6 @@ if ! git merge-base --is-ancestor $STABLE_BRANCH $DEVELOPMENT_BRANCH; then
   exit $NEUTRAL_EXIT_CODE
 fi;
 
+# do the merge
 git merge --no-edit $STABLE_BRANCH
 git push --force-with-lease origin $DEVELOPMENT_BRANCH
