@@ -18,36 +18,15 @@ DEVELOPMENT_BRANCH=devel
 
 
 
-REPO_FULLNAME=$(jq -r ".repository.full_name" "$GITHUB_EVENT_PATH")
-
 # FIXME: check that this is the main repository and not a fork
 
-echo "https://x-access-token:GITHUB_TOKEN@github.com/$REPO_FULLNAME.git"
+echo "https://x-access-token:GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY.git"
 
-git remote set-url origin https://x-access-token:$GITHUB_TOKEN@github.com/$REPO_FULLNAME.git
+git remote set-url origin https://x-access-token:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY.git
 git config --global user.email "actions@github.com"
 git config --global user.name "GitHub Merge Action"
 
 set -o xtrace
-
-echo $GITHUB_TOKEN
-echo $HOME
-echo $GITHUB_REF
-echo $GITHUB_SHA
-echo $GITHUB_REPOSITORY
-echo $GITHUB_ACTOR
-echo $GITHUB_WORKFLOW
-echo $GITHUB_HEAD_REF
-echo $GITHUB_BASE_REF
-echo $GITHUB_EVENT_NAME
-echo $GITHUB_WORKSPACE
-echo $GITHUB_ACTION
-echo $GITHUB_EVENT_PATH
-echo $RUNNER_OS
-echo $RUNNER_TOOL_CACHE
-echo $RUNNER_TEMP
-echo $RUNNER_WORKSPACE
-
 
 git fetch origin $STABLE_BRANCH
 git fetch origin $DEVELOPMENT_BRANCH
