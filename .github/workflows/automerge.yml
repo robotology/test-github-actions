@@ -1,5 +1,4 @@
 name: 'Nightly Merge'
-description: 'Automatically merge the stable branch into the development one.'
 
 on:
   schedule:
