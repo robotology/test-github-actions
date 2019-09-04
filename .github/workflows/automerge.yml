@@ -13,6 +13,6 @@ jobs:
     - uses: actions/checkout@master
 
     - name: Automatic Merge
-      uses: lots0logs/gh-action-auto-merge@1.0.0
+      uses: ./.github/actions/automerge
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
