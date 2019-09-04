@@ -7,13 +7,10 @@ if [[ -z "$GITHUB_TOKEN" ]]; then
   exit 1
 fi
 
-# FIXME these should be configurable
-INPUT_STABLE_BRANCH=master
-INPUT_DEVELOPMENT_BRANCH=devel
-
-echo "stable_branch = $INPUT_STABLE_BRANCH"
-echo "development_branch = $INPUT_DEVELOPMENT_BRANCH"
-echo "allow_ff = $INPUT_ALLOW_FF"
+echo "Nightly merge is using the following input:"
+echo "  - stable_branch = '$INPUT_STABLE_BRANCH'"
+echo "  - development_branch = '$INPUT_DEVELOPMENT_BRANCH'"
+echo "  - allow_ff = '$INPUT_ALLOW_FF'"
 
 NO_FF="--no-ff"
 if $INPUT_ALLOW_FF; then
@@ -41,9 +38,6 @@ if git merge-base --is-ancestor $INPUT_STABLE_BRANCH $INPUT_DEVELOPMENT_BRANCH; 
   echo "No merge is necessary"
   exit 0
 fi;
-
-
-echo "NO_FF = $NO_FF"
 
 # Do the merge
 git merge $NO_FF --no-edit $INPUT_STABLE_BRANCH
