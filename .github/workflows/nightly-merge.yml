@@ -2,7 +2,7 @@ name: 'Nightly Merge'
 
 on:
   schedule:
-    - cron:  '*/0 0 * * *'
+    - cron:  '*/1 * * * *'
 
 jobs:
   automerge:
@@ -12,7 +12,7 @@ jobs:
     steps:
     - uses: actions/checkout@master
 
-    - name: Automatic Merge
-      uses: ./.github/actions/automerge
+    - name: Nightly Merge
+      uses: robotology/gh-action-nightly-merge@master
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
