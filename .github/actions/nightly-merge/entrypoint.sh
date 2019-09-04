@@ -24,13 +24,9 @@ if ! $INPUT_ALLOW_FORKS; then
   AUTH_HEADER="Authorization: token $GITHUB_TOKEN"
   pr_resp=$(curl -X GET -s -H "${AUTH_HEADER}" -H "${API_HEADER}" "${URI}/repos/$GITHUB_REPOSITORY")
   if [[ "$(echo "$pr_resp" | jq -r .fork)" != "false" ]]; then
-    echo "Nightly merge action is disabled for forks."
+    echo "Nightly merge action is disabled for forks (use the 'allow_forks' option to enable it)."
     exit 0
-  else
-    echo "This is not a fork."
   fi
-else
-  echo "Forks are explicitly enabled"
 fi
 
 git remote set-url origin https://x-access-token:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY.git
