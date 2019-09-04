@@ -7,11 +7,13 @@ if [[ -z "$GITHUB_TOKEN" ]]; then
   exit 1
 fi
 
+echo
 echo "Nightly merge is using the following input:"
 echo "  - stable_branch = '$INPUT_STABLE_BRANCH'"
 echo "  - development_branch = '$INPUT_DEVELOPMENT_BRANCH'"
 echo "  - allow_ff = $INPUT_ALLOW_FF"
 echo "  - allow_forks = $INPUT_ALLOW_FORKS"
+echo
 
 NO_FF="--no-ff"
 if $INPUT_ALLOW_FF; then
