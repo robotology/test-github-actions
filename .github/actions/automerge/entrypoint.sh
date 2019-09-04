@@ -15,6 +15,11 @@ echo "stable_branch = $INPUT_STABLE_BRANCH"
 echo "development_branch = $INPUT_DEVELOPMENT_BRANCH"
 echo "allow_ff = $INPUT_ALLOW_FF"
 
+NO_FF="--no-ff"
+if $INPUT_ALLOW_FF; then
+  NO_FF=""
+fi
+
 # FIXME: check that this is the main repository and not a fork
 
 git remote set-url origin https://x-access-token:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY.git
@@ -37,10 +42,6 @@ if git merge-base --is-ancestor $INPUT_STABLE_BRANCH $INPUT_DEVELOPMENT_BRANCH; 
   exit 0
 fi;
 
-NO_FF="--no-ff"
-if $INPUT_ALLOW_FF; then
-  NO_FF=""
-fi
 
 echo "NO_FF = $NO_FF"
 
