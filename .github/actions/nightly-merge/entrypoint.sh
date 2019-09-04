@@ -8,11 +8,11 @@ if [[ -z "$GITHUB_TOKEN" ]]; then
 fi
 
 echo
-echo "Nightly merge is using the following input:"
-echo "  - stable_branch = '$INPUT_STABLE_BRANCH'"
-echo "  - development_branch = '$INPUT_DEVELOPMENT_BRANCH'"
-echo "  - allow_ff = $INPUT_ALLOW_FF"
-echo "  - allow_forks = $INPUT_ALLOW_FORKS"
+echo "  'Nightly Merge Action' is using the following input:"
+echo "    - stable_branch = '$INPUT_STABLE_BRANCH'"
+echo "    - development_branch = '$INPUT_DEVELOPMENT_BRANCH'"
+echo "    - allow_ff = $INPUT_ALLOW_FF"
+echo "    - allow_forks = $INPUT_ALLOW_FORKS"
 echo
 
 NO_FF="--no-ff"
@@ -50,7 +50,7 @@ fi;
 
 set +o xtrace
 echo
-echo "  Nightly merge is trying to merge the $INPUT_STABLE_BRANCH branch ($(git log -1 --pretty=%H $INPUT_STABLE_BRANCH))"
+echo "  'Nightly Merge Action' is trying to merge the $INPUT_STABLE_BRANCH branch ($(git log -1 --pretty=%H $INPUT_STABLE_BRANCH))"
 echo "  into the $INPUT_DEVELOPMENT_BRANCH branch ($(git log -1 --pretty=%H $INPUT_DEVELOPMENT_BRANCH))"
 echo
 set -o xtrace
