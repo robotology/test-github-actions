@@ -14,5 +14,9 @@ jobs:
 
     - name: Nightly Merge
       uses: ./.github/actions/automerge
+      with:
+        stable_branch: 'xmaster'
+        development_branch: 'xdevel'
+        allow_ff: true
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
