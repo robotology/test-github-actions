@@ -1,4 +1,4 @@
-# gh-action-auto-merge
+# Nightly Merge Action
 
 Automatically merge the stable branch into the development one.
 
