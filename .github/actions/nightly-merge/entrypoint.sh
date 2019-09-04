@@ -51,11 +51,10 @@ if git merge-base --is-ancestor $INPUT_STABLE_BRANCH $INPUT_DEVELOPMENT_BRANCH; 
 fi;
 
 set +o xtrace
-echo "Nightly merge is trying to merge the following commit ($INPUT_STABLE_BRANCH):"
-git log -1 --pretty=oneline $INPUT_STABLE_BRANCH
-echo "into ($INPUT_DEVELOPMENT_BRANCH)"
-git log -1 --pretty=oneline $INPUT_DEVELOPMENT_BRANCH
-
+echo
+echo "  Nightly merge is trying to merge the $INPUT_STABLE_BRANCH branch ($(git log -1 --pretty=%H $INPUT_STABLE_BRANCH))"
+echo "  into the $INPUT_DEVELOPMENT_BRANCH branch ($(git log -1 --pretty=%H $INPUT_DEVELOPMENT_BRANCH))"
+echo
 set -o xtrace
 
 # Do the merge
