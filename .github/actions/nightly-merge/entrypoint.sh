@@ -31,7 +31,7 @@ git checkout -b $INPUT_STABLE_BRANCH origin/$INPUT_STABLE_BRANCH
 git fetch origin $INPUT_DEVELOPMENT_BRANCH
 git checkout -b $INPUT_DEVELOPMENT_BRANCH origin/$INPUT_DEVELOPMENT_BRANCH
 
-set +o
+set +o xtrace
 echo "Nightly merge is trying to merge the following commit ($INPUT_STABLE_BRANCH):"
 git log -1 --pretty=oneline $INPUT_STABLE_BRANCH
 echo "into ($INPUT_DEVELOPMENT_BRANCH)"
