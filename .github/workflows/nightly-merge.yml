@@ -1,8 +1,6 @@
 name: 'Nightly Merge'
 
-on:
-  schedule:
-    - cron:  '*/0 0 * * *'
+on: push
 
 jobs:
   nightly-merge:
@@ -13,7 +11,7 @@ jobs:
     - uses: actions/checkout@master
 
     - name: Nightly Merge
-      uses: robotology/gh-action-nightly-merge@master
+      uses: ./.github/actions/nightly-merge
       with:
         stable_branch: 'master'
         development_branch: 'devel'
