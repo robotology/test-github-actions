@@ -8,7 +8,7 @@ if [[ -z "$GITHUB_TOKEN" ]]; then
 fi
 
 
-# See: https://developer.github.com/actions/creating-github-actions/accessing-the-runtime-environment/#exit-codes-and-statuses
+# See: https://help.github.com/en/articles/virtual-environments-for-github-actions#exit-codes-and-statuses
 NEUTRAL_EXIT_CODE=78
 
 # FIXME these should be configurable
@@ -36,7 +36,7 @@ git checkout -b $DEVELOPMENT_BRANCH origin/$DEVELOPMENT_BRANCH
 
 if ! git merge-base --is-ancestor $STABLE_BRANCH $DEVELOPMENT_BRANCH; then
   echo "No merge is necessary"
-  exit $NEUTRAL_EXIT_CODE
+  exit 0
 fi;
 
 # do the merge
