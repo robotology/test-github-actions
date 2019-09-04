@@ -50,8 +50,8 @@ fi;
 
 set +o xtrace
 echo
-echo "  'Nightly Merge Action' is trying to merge the $INPUT_STABLE_BRANCH branch ($(git log -1 --pretty=%H $INPUT_STABLE_BRANCH))"
-echo "  into the $INPUT_DEVELOPMENT_BRANCH branch ($(git log -1 --pretty=%H $INPUT_DEVELOPMENT_BRANCH))"
+echo "  'Nightly Merge Action' is trying to merge the '$INPUT_STABLE_BRANCH' branch ($(git log -1 --pretty=%H $INPUT_STABLE_BRANCH))"
+echo "  into the '$INPUT_DEVELOPMENT_BRANCH' branch ($(git log -1 --pretty=%H $INPUT_DEVELOPMENT_BRANCH))"
 echo
 set -o xtrace
 
