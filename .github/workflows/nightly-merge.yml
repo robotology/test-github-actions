@@ -13,10 +13,10 @@ jobs:
     - uses: actions/checkout@master
 
     - name: Nightly Merge
-      uses: ./.github/actions/automerge
+      uses: ./.github/actions/nightly-merge
       with:
         stable_branch: 'master'
         development_branch: 'devel'
-        allow_ff: true
+        allow_ff: false
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
