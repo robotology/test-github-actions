@@ -25,10 +25,10 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@master
+      uses: actions/checkout@v1
 
     - name: Nightly Merge
-      uses: robotology/gh-action-nightly-merge@v1.0.0
+      uses: robotology/gh-action-nightly-merge@v1
       with:
         stable_branch: 'master'
         development_branch: 'devel'
