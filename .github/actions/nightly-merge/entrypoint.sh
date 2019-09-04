@@ -10,8 +10,8 @@ fi
 echo "Nightly merge is using the following input:"
 echo "  - stable_branch = '$INPUT_STABLE_BRANCH'"
 echo "  - development_branch = '$INPUT_DEVELOPMENT_BRANCH'"
-echo "  - allow_ff = '$INPUT_ALLOW_FF'"
-echo "  - allow_forks = '$INPUT_ALLOW_FORKS'"
+echo "  - allow_ff = $INPUT_ALLOW_FF"
+echo "  - allow_forks = $INPUT_ALLOW_FORKS"
 
 NO_FF="--no-ff"
 if $INPUT_ALLOW_FF; then
@@ -29,6 +29,8 @@ if ! $INPUT_ALLOW_FORKS; then
   else
     echo "This is not a fork."
   fi
+else
+  echo "Forks are explicitly enabled"
 fi
 
 git remote set-url origin https://x-access-token:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY.git
