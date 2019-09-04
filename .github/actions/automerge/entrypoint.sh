@@ -34,7 +34,7 @@ git fetch origin $DEVELOPMENT_BRANCH
 git checkout -b $STABLE_BRANCH origin/$STABLE_BRANCH
 git checkout -b $DEVELOPMENT_BRANCH origin/$DEVELOPMENT_BRANCH
 
-if ! git merge-base --is-ancestor $STABLE_BRANCH $DEVELOPMENT_BRANCH; then
+if git merge-base --is-ancestor $STABLE_BRANCH $DEVELOPMENT_BRANCH; then
   echo "No merge is necessary"
   exit 0
 fi;
