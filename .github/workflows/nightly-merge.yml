@@ -13,6 +13,6 @@ jobs:
     - uses: actions/checkout@master
 
     - name: Nightly Merge
-      uses: robotology/gh-action-nightly-merge@master
+      uses: ./.github/actions/automerge
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
