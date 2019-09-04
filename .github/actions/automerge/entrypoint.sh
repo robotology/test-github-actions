@@ -19,6 +19,8 @@ REPO_FULLNAME=$(jq -r ".repository.full_name" "$GITHUB_EVENT_PATH")
 
 # FIXME: check that this is the main repository and not a fork
 
+echo "https://x-access-token:GITHUB_TOKEN@github.com/$REPO_FULLNAME.git"
+
 git remote set-url origin https://x-access-token:$GITHUB_TOKEN@github.com/$REPO_FULLNAME.git
 git config --global user.email "actions@github.com"
 git config --global user.name "GitHub Merge Action"
