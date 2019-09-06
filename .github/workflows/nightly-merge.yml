@@ -20,7 +20,9 @@ jobs:
         stable_branch: 'master'
         development_branch: 'devel'
         allow_ff: false
-        user_name: "The user name"
-        user_email: "email@example.com"
+        user_name: 'The user name'
+        user_email: 'email@example.com'
+        push_token: 'FOO_TOKEN'
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        FOO_TOKEN: ${{ secrets.FOO_TOKEN }}
