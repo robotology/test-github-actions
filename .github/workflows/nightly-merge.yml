@@ -20,5 +20,7 @@ jobs:
         stable_branch: 'master'
         development_branch: 'devel'
         allow_ff: false
+        user_name: "The user name"
+        user_email: "email@example.com"
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
