@@ -41,7 +41,7 @@ BASE_BRANCH=$(echo "$pr_resp" | jq -r .base.ref)
 echo "GITHUB_EVENT_PATH ="
 cat $GITHUB_EVENT_PATH
 
-USER_LOGIN=$(jq -r ".user.login" "$GITHUB_EVENT_PATH")
+USER_LOGIN=$(jq -r ".comment.user.login" "$GITHUB_EVENT_PATH")
 
 echo "USER_LOGIN = $USER_LOGIN"
 
