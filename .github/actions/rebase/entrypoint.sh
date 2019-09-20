@@ -85,8 +85,8 @@ git fetch origin $BASE_BRANCH
 git fetch fork $HEAD_BRANCH
 
 # do the rebase
-git checkout -b $HEAD_BRANCH origin/$HEAD_BRANCH
+git checkout -b $HEAD_BRANCH fork/$HEAD_BRANCH
 git rebase origin/$BASE_BRANCH
 
 # push back
-git push --force-with-lease
+git push --force-with-lease fork $HEAD_BRANCH
