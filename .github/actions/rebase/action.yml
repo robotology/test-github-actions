@@ -1,0 +1,11 @@
+name: 'Automatic Rebase'
+description: 'Automatically rebases PR on '/rebase' comment'
+author: '...'
+branding:
+  icon: 'git-pull-request'
+  color: 'purple'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.myInput }}

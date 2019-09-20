@@ -1,0 +1,19 @@
+name: 'Rebase PR'
+
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  rebase:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+    - uses: actions/checkout@v1
+
+    - name: Rebase PR
+      uses: ./.github/actions/rebase
+      env:
+        GITHUB_TOKEN: ${{ secrets.FOO_TOKEN }}
