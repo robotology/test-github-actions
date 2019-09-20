@@ -16,4 +16,5 @@ jobs:
     - name: Rebase PR
       uses: ./.github/actions/rebase
       env:
-        GITHUB_TOKEN: ${{ secrets.FOO_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#        drdanz_TOKEN: ${{ secrets.FOO_TOKEN }}
