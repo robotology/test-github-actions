@@ -38,29 +38,20 @@ pr_resp=$(curl -X GET -s -H "${AUTH_HEADER}" -H "${API_HEADER}" \
 BASE_REPO=$(echo "$pr_resp" | jq -r .base.repo.full_name)
 BASE_BRANCH=$(echo "$pr_resp" | jq -r .base.ref)
 
-echo "GITHUB_EVENT_PATH ="
-cat $GITHUB_EVENT_PATH
-
 USER_LOGIN=$(jq -r ".comment.user.login" "$GITHUB_EVENT_PATH")
-
-echo "USER_LOGIN = $USER_LOGIN"
 
 user_resp=$(curl -X GET -s -H "${AUTH_HEADER}" -H "${API_HEADER}" \
             "${URI}/users/${USER_LOGIN}")
 
-echo "user_resp = $user_resp"
-            
 USER_NAME=$(echo "$user_resp" | jq -r ".name")
 if [[ "$USER_NAME" == "null" ]]; then
-  USER_NAME=$USER_LOGIN
+	USER_NAME=$USER_LOGIN
 fi
 USER_NAME="${USER_NAME} (Rebase PR Action)"
 
-echo "USER_NAME = $USER_NAME"
-
 USER_EMAIL=$(echo "$user_resp" | jq -r ".email")
 if [[ "$USER_EMAIL" == "null" ]]; then
-  USER_EMAIL="$USER_LOGIN@users.noreply.github.com"
+	USER_EMAIL="$USER_LOGIN@users.noreply.github.com"
 fi
 
 if [[ "$(echo "$pr_resp" | jq -r .rebaseable)" != "true" ]]; then
@@ -79,16 +70,14 @@ HEAD_BRANCH=$(echo "$pr_resp" | jq -r .head.ref)
 
 echo "Base branch for PR #$PR_NUMBER is $BASE_BRANCH"
 
-if [[ "$BASE_REPO" != "$HEAD_REPO" ]]; then
-	echo "PRs from forks are not supported at the moment."
-	exit 1
-fi
+USER_TOKEN=${USER_LOGIN}_TOKEN
+COMMITTER_TOKEN=${!USER_TOKEN:-$GITHUB_TOKEN}
 
-git remote set-url origin https://x-access-token:$GITHUB_TOKEN@github.com/$REPO_FULLNAME.git
+git remote set-url origin https://x-access-token:$COMMITTER_TOKEN@github.com/$REPO_FULLNAME.git
 git config --global user.email "$USER_EMAIL"
 git config --global user.name "$USER_NAME"
 
-git remote add fork https://x-access-token:$GITHUB_TOKEN@github.com/$HEAD_REPO.git
+git remote add fork https://x-access-token:$COMMITTER_TOKEN@github.com/$HEAD_REPO.git
 
 set -o xtrace
 
