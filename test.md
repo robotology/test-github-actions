@@ -7,3 +7,5 @@ Add more stuff here
 And more
 
 Test with protected branches
+
+Why not!
