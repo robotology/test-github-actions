@@ -41,7 +41,7 @@ BASE_BRANCH=$(echo "$pr_resp" | jq -r .base.ref)
 USER_LOGIN=$(jq -r ".user.login" "$GITHUB_EVENT_PATH")
 
 user_resp=$(curl -X GET -s -H "${AUTH_HEADER}" -H "${API_HEADER}" \
-            "${URI}/users/${USER_LOGIN}"
+            "${URI}/users/${USER_LOGIN}")
 
 USER_NAME=$(echo "$user_resp" | jq -r ".name")
 USER_EMAIL=$(echo "$user_resp" | jq -r ".email")
