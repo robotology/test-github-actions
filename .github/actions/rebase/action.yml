@@ -1,5 +1,5 @@
 name: 'Automatic Rebase'
-description: 'Automatically rebases PR on '/rebase' comment'
+description: 'Automatically rebases PR on /rebase comment'
 author: '...'
 branding:
   icon: 'git-pull-request'
