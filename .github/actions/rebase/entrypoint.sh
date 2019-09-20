@@ -45,8 +45,8 @@ user_resp=$(curl -X GET -s -H "${AUTH_HEADER}" -H "${API_HEADER}" \
 
 USER_NAME=$(echo "$user_resp" | jq -r ".name")
 USER_EMAIL=$(echo "$user_resp" | jq -r ".email")
-if [[ "$USER_EMAIL" == "null" ]]
-  "action@github.com"
+if [[ "$USER_EMAIL" == "null" ]]; then
+  USER_EMAIL="action@github.com"
 fi
 
 if [[ "$(echo "$pr_resp" | jq -r .rebaseable)" != "true" ]]; then
