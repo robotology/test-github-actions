@@ -51,10 +51,16 @@ user_resp=$(curl -X GET -s -H "${AUTH_HEADER}" -H "${API_HEADER}" \
 echo "user_resp = $user_resp"
             
 USER_NAME=$(echo "$user_resp" | jq -r ".name")
+if [[ "$USER_NAME" == "null" ]]; then
+  USER_NAME=$USER_LOGIN
+fi
+USER_NAME="${USER_NAME} (Rebase PR Action)"
+
 echo "USER_NAME = $USER_NAME"
+
 USER_EMAIL=$(echo "$user_resp" | jq -r ".email")
 if [[ "$USER_EMAIL" == "null" ]]; then
-  USER_EMAIL="action@github.com"
+  USER_EMAIL="$USER_LOGIN@users.noreply.github.com"
 fi
 
 if [[ "$(echo "$pr_resp" | jq -r .rebaseable)" != "true" ]]; then
@@ -80,7 +86,7 @@ fi
 
 git remote set-url origin https://x-access-token:$GITHUB_TOKEN@github.com/$REPO_FULLNAME.git
 git config --global user.email "$USER_EMAIL"
-git config --global user.name "$USER_NAME (Rebase PR Action)"
+git config --global user.name "$USER_NAME"
 
 git remote add fork https://x-access-token:$GITHUB_TOKEN@github.com/$HEAD_REPO.git
 
