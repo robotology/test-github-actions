@@ -6,14 +6,6 @@ set -e
 # See how it was before: https://developer.github.com/actions/creating-github-actions/accessing-the-runtime-environment/#exit-codes-and-statuses
 NEUTRAL_EXIT_CODE=0
 
-echo
-echo "GITHUB_EVENT_PATH = $GITHUB_EVENT_PATH"
-echo "  content:"
-echo "------"
-cat $GITHUB_EVENT_PATH
-echo "------"
-echo
-
 # skip if no /rebase
 echo "Checking if comment contains '/rebase' command..."
 (jq -r ".comment.body" "$GITHUB_EVENT_PATH" | grep -Fq "/rebase") || exit $NEUTRAL_EXIT_CODE
@@ -46,10 +38,16 @@ pr_resp=$(curl -X GET -s -H "${AUTH_HEADER}" -H "${API_HEADER}" \
 BASE_REPO=$(echo "$pr_resp" | jq -r .base.repo.full_name)
 BASE_BRANCH=$(echo "$pr_resp" | jq -r .base.ref)
 
-USER_LOGIN=$(echo "$pr_resp" | jq -r .user.login)
+USER_LOGIN=$(jq -r ".user.login" "$GITHUB_EVENT_PATH")
 
 user_resp=$(curl -X GET -s -H "${AUTH_HEADER}" -H "${API_HEADER}" \
             "${URI}/users/${USER_LOGIN}"
+
+USER_NAME=$(echo "$user_resp" | jq -r ".name")
+USER_EMAIL=$(echo "$user_resp" | jq -r ".email")
+if [[ "$USER_EMAIL" == "null" ]]
+  "action@github.com"
+fi
 
 if [[ "$(echo "$pr_resp" | jq -r .rebaseable)" != "true" ]]; then
 	echo "GitHub doesn't think that the PR is rebaseable!"
@@ -73,8 +71,8 @@ if [[ "$BASE_REPO" != "$HEAD_REPO" ]]; then
 fi
 
 git remote set-url origin https://x-access-token:$GITHUB_TOKEN@github.com/$REPO_FULLNAME.git
-git config --global user.email "action@github.com"
-git config --global user.name "GitHub Action"
+git config --global user.email "$USER_EMAIL"
+git config --global user.name "$USER_NAME (Rebase PR Action)"
 
 git remote add fork https://x-access-token:$GITHUB_TOKEN@github.com/$HEAD_REPO.git
 
