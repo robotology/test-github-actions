@@ -38,12 +38,20 @@ pr_resp=$(curl -X GET -s -H "${AUTH_HEADER}" -H "${API_HEADER}" \
 BASE_REPO=$(echo "$pr_resp" | jq -r .base.repo.full_name)
 BASE_BRANCH=$(echo "$pr_resp" | jq -r .base.ref)
 
+echo "GITHUB_EVENT_PATH ="
+cat $GITHUB_EVENT_PATH
+
 USER_LOGIN=$(jq -r ".user.login" "$GITHUB_EVENT_PATH")
+
+echo "USER_LOGIN = $USER_LOGIN"
 
 user_resp=$(curl -X GET -s -H "${AUTH_HEADER}" -H "${API_HEADER}" \
             "${URI}/users/${USER_LOGIN}")
 
+echo "user_resp = $user_resp"
+            
 USER_NAME=$(echo "$user_resp" | jq -r ".name")
+echo "USER_NAME = $USER_NAME"
 USER_EMAIL=$(echo "$user_resp" | jq -r ".email")
 if [[ "$USER_EMAIL" == "null" ]]; then
   USER_EMAIL="action@github.com"
